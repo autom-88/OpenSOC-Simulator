@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OpenSOC - Reports</title>
+<link rel="stylesheet" href="css/main.css">
+<style>
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.report-box{background:#111827;border:1px solid #334155;border-radius:10px;padding:20px;margin-top:20px}
+.badge{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold}
+.critical{background:#dc2626;color:#fff}
+.high{background:#ea580c;color:#fff}
+.medium{background:#ca8a04;color:#fff}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="logo">
+<h2>🛡 OpenSOC</h2>
+<span>Security Operations Center</span>
+</div>
+<ul>
+<li><a href="index.html">🏠 Dashboard</a></li>
+<li><a href="incident.html">🚨 Incidents</a></li>
+<li><a href="hunting.html">🔍 Threat Hunting</a></li>
+<li><a href="analytics.html">📊 Analytics</a></li>
+<li><a href="entities.html">🌐 Entities</a></li>
+<li><a href="devices.html">💻 Devices</a></li>
+<li><a href="users.html">👤 Users</a></li>
+<li><a href="timeline.html">⏱ Timeline</a></li>
+<li><a href="playbooks.html">⚙ Playbooks</a></li>
+<li class="active"><a href="reports.html">📄 Reports</a></li>
+<li><a href="settings.html">⚙ Settings</a></li>
+</ul>
+</aside>
+
+<main>
+
+<header class="topbar">
+<div>
+<h1>📄 Security Reports</h1>
+<p>Incident reporting and export center</p>
+</div>
+<div class="status"><span class="online"></span>Connected</div>
+</header>
+
+<section class="cards">
+<div class="card"><h3>Total Reports</h3><h2>42</h2></div>
+<div class="card"><h3>Critical</h3><h2>6</h2></div>
+<div class="card"><h3>Open Incidents</h3><h2>8</h2></div>
+<div class="card"><h3>Closed</h3><h2>34</h2></div>
+</section>
+
+<div class="actions">
+<button onclick="downloadReport('PDF')">📄 Export PDF</button>
+<button onclick="downloadReport('CSV')">📊 Export CSV</button>
+<button onclick="downloadReport('JSON')">🗂 Export JSON</button>
+</div>
+
+<table>
+<tr>
+<th>ID</th>
+<th>Title</th>
+<th>Severity</th>
+<th>Status</th>
+<th>Date</th>
+<th>View</th>
+</tr>
+
+<tr>
+<td>REP-001</td>
+<td>Brute Force Attack</td>
+<td><span class="badge critical">Critical</span></td>
+<td>Closed</td>
+<td>28/06/2026</td>
+<td><button onclick="showReport('Brute Force Attack')">Open</button></td>
+</tr>
+
+<tr>
+<td>REP-002</td>
+<td>PowerShell Execution</td>
+<td><span class="badge high">High</span></td>
+<td>Investigating</td>
+<td>28/06/2026</td>
+<td><button onclick="showReport('PowerShell Execution')">Open</button></td>
+</tr>
+
+<tr>
+<td>REP-003</td>
+<td>Privilege Escalation</td>
+<td><span class="badge medium">Medium</span></td>
+<td>Closed</td>
+<td>27/06/2026</td>
+<td><button onclick="showReport('Privilege Escalation')">Open</button></td>
+</tr>
+
+</table>
+
+<div class="report-box">
+<h2>Report Preview</h2>
+<pre id="preview">
+Select a report from the table.
+
+Executive Summary
+Timeline
+Indicators of Compromise
+MITRE ATT&CK
+Recommendations
+</pre>
+</div>
+
+</main>
+
+<script>
+function showReport(title){
+document.getElementById("preview").textContent=
+"Report: "+title+
+"\n\nExecutive Summary:\nIncident detected and analyzed successfully."+
+"\n\nTimeline:\n09:22 Detection\n09:25 Investigation\n09:40 Containment"+
+"\n\nMITRE: T1110"+
+"\nIOC: 192.168.1.50"+
+"\nRecommendation: Enable MFA and review authentication logs.";
+}
+
+function downloadReport(type){
+alert(type+" export simulated.");
+}
+</script>
+
+</body>
+</html>

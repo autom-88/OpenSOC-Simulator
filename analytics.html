@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OpenSOC - Analytics</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="logo">
+<h2>🛡 OpenSOC</h2>
+<span>Security Operations Center</span>
+</div>
+<ul>
+<li><a href="index.html">🏠 Dashboard</a></li>
+<li><a href="incident.html">🚨 Incidents</a></li>
+<li><a href="hunting.html">🔍 Threat Hunting</a></li>
+<li class="active"><a href="analytics.html">📊 Analytics</a></li>
+<li><a href="entities.html">🌐 Entities</a></li>
+<li><a href="devices.html">💻 Devices</a></li>
+<li><a href="users.html">👤 Users</a></li>
+<li><a href="timeline.html">⏱ Timeline</a></li>
+<li><a href="playbooks.html">⚙ Playbooks</a></li>
+<li><a href="reports.html">📄 Reports</a></li>
+<li><a href="settings.html">⚙ Settings</a></li>
+</ul>
+</aside>
+
+<main>
+
+<header class="topbar">
+<div>
+<h1>📊 Analytics Rules</h1>
+<p>Detection rules and alert management</p>
+</div>
+<div class="status"><span class="online"></span>Connected</div>
+</header>
+
+<section class="cards">
+<div class="card"><h3>Enabled Rules</h3><h2 id="enabled">8</h2></div>
+<div class="card"><h3>Disabled Rules</h3><h2 id="disabled">2</h2></div>
+<div class="card"><h3>Alerts Today</h3><h2>57</h2></div>
+<div class="card"><h3>Critical Alerts</h3><h2>6</h2></div>
+</section>
+
+<section>
+<h2>Analytics Rules</h2>
+<table>
+<tr><th>Rule</th><th>Severity</th><th>Status</th><th>Action</th></tr>
+<tr><td>Failed Login Detection</td><td class="orange">High</td><td><span id="s0">Enabled</span></td><td><button onclick="toggle('s0')">Toggle</button></td></tr>
+<tr><td>Brute Force</td><td class="red">Critical</td><td><span id="s1">Enabled</span></td><td><button onclick="toggle('s1')">Toggle</button></td></tr>
+<tr><td>PowerShell Execution</td><td class="yellow">Medium</td><td><span id="s2">Enabled</span></td><td><button onclick="toggle('s2')">Toggle</button></td></tr>
+<tr><td>Nmap Detection</td><td class="orange">High</td><td><span id="s3">Disabled</span></td><td><button onclick="toggle('s3')">Toggle</button></td></tr>
+<tr><td>Mimikatz Detection</td><td class="red">Critical</td><td><span id="s4">Enabled</span></td><td><button onclick="toggle('s4')">Toggle</button></td></tr>
+<tr><td>New Administrator</td><td class="yellow">Medium</td><td><span id="s5">Enabled</span></td><td><button onclick="toggle('s5')">Toggle</button></td></tr>
+<tr><td>USB Device</td><td class="green">Low</td><td><span id="s6">Disabled</span></td><td><button onclick="toggle('s6')">Toggle</button></td></tr>
+<tr><td>RDP Connection</td><td class="orange">High</td><td><span id="s7">Enabled</span></td><td><button onclick="toggle('s7')">Toggle</button></td></tr>
+</table>
+</section>
+
+<section>
+<h2>Rule Details</h2>
+<pre id="details">Select or toggle a rule.
+
+Rule Engine: OpenSOC Analytics
+Frequency: Every 5 minutes
+Action: Generate Incident
+MITRE: T1110 / T1059
+</pre>
+</section>
+
+</main>
+
+<script>
+function updateCounts(){
+ let en=0,dis=0;
+ document.querySelectorAll("span[id^='s']").forEach(s=>{
+   if(s.textContent==="Enabled") en++; else dis++;
+ });
+ document.getElementById("enabled").textContent=en;
+ document.getElementById("disabled").textContent=dis;
+}
+function toggle(id){
+ const e=document.getElementById(id);
+ e.textContent=e.textContent==="Enabled"?"Disabled":"Enabled";
+ document.getElementById("details").textContent=
+ "Rule Status: "+e.textContent+
+ "\nLast Modified: "+new Date().toLocaleString()+
+ "\nAction: Generate Alert when conditions are met.";
+ updateCounts();
+}
+updateCounts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OpenSOC Simulator</title>
+
+<link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <h2>🛡 OpenSOC</h2>
+        <span>Security Operations Center</span>
+
+    </div>
+
+    <nav>
+
+        <ul>
+
+            <li class="active">
+                <a href="index.html">🏠 Dashboard</a>
+            </li>
+
+            <li>
+                <a href="incident.html">🚨 Incidents</a>
+            </li>
+
+            <li>
+                <a href="hunting.html">🔍 Threat Hunting</a>
+            </li>
+
+            <li>
+                <a href="analytics.html">📊 Analytics</a>
+            </li>
+
+            <li>
+                <a href="entities.html">🌐 Entities</a>
+            </li>
+
+            <li>
+                <a href="devices.html">💻 Devices</a>
+            </li>
+
+            <li>
+                <a href="users.html">👤 Users</a>
+            </li>
+
+            <li>
+                <a href="timeline.html">⏱ Timeline</a>
+            </li>
+
+            <li>
+                <a href="playbooks.html">⚙ Playbooks</a>
+            </li>
+
+            <li>
+                <a href="reports.html">📄 Reports</a>
+            </li>
+
+            <li>
+                <a href="settings.html">⚙ Settings</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</aside>
+
+<main>
+
+    <header class="topbar">
+
+        <div>
+
+            <h1>Dashboard</h1>
+            <p>OpenSOC Monitoring Console</p>
+
+        </div>
+
+        <div class="status">
+
+            <span class="online"></span>
+
+            Connected
+
+        </div>
+
+    </header>
+
+    <section class="cards">
+
+        <div class="card critical">
+
+            <h3>Threat Level</h3>
+
+            <h2>HIGH</h2>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Incidents</h3>
+
+            <h2 id="incidents">18</h2>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Events</h3>
+
+            <h2 id="events">12548</h2>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Devices</h3>
+
+            <h2>94</h2>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Users</h3>
+
+            <h2>328</h2>
+
+        </div>
+
+    </section>
+
+    <section class="quick">
+
+        <a href="page2.html" class="button">
+
+            🚨 Open Incident Center
+
+        </a>
+
+    </section>
+
+    <section>
+
+        <h2>Live Events</h2>
+
+        <div id="log" class="log"></div>
+
+    </section>
+
+    <section class="kql">
+
+        <h2>KQL Emulator</h2>
+
+<textarea id="query" rows="6">
+SecurityEvent
+| where EventID == 4625
+| summarize Count=count() by Account
+</textarea>
+
+        <br><br>
+
+        <button onclick="runQuery()">
+
+            Run Query
+
+        </button>
+
+<pre id="result">
+
+Ready...
+
+</pre>
+
+    </section>
+
+    <section>
+
+        <h2>Recent Incidents</h2>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Severity</th>
+                <th>Status</th>
+                <th>Host</th>
+                <th></th>
+
+            </tr>
+
+            <tr>
+
+                <td>INC-1001</td>
+
+                <td class="red">Critical</td>
+
+                <td>Active</td>
+
+                <td>SERVER-01</td>
+
+                <td>
+
+                    <a href="page2.html">
+
+                        View
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>INC-1002</td>
+
+                <td class="orange">High</td>
+
+                <td>Investigating</td>
+
+                <td>SERVER-03</td>
+
+                <td>
+
+                    <a href="page2.html">
+
+                        View
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>INC-1003</td>
+
+                <td class="yellow">Medium</td>
+
+                <td>Active</td>
+
+                <td>PC-008</td>
+
+                <td>
+
+                    <a href="incident.html">
+
+                        View
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </section>
+
+</main>
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>

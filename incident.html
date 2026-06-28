@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenSOC - Incidents</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:#fff;
+}
+
+/* HEADER */
+
+header{
+    background:#111827;
+    padding:20px;
+    border-bottom:1px solid #1f2937;
+}
+
+header h1{
+    color:#38bdf8;
+}
+
+/* CONTAINER */
+
+.container{
+    width:95%;
+    margin:30px auto;
+}
+
+/* STATISTICHE */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:10px;
+    border-left:6px solid #38bdf8;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card h2{
+    font-size:36px;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#b8c5d0;
+}
+
+/* TABELLA */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#1e293b;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th{
+    background:#2563eb;
+    padding:15px;
+    text-align:left;
+}
+
+td{
+    padding:14px;
+    border-bottom:1px solid #334155;
+}
+
+tr:hover{
+    background:#273549;
+}
+
+/* BADGE */
+
+.badge{
+    padding:6px 14px;
+    border-radius:20px;
+    color:white;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.critical{
+    background:#dc2626;
+}
+
+.high{
+    background:#ea580c;
+}
+
+.medium{
+    background:#ca8a04;
+}
+
+.low{
+    background:#16a34a;
+}
+
+.active{
+    background:#dc2626;
+}
+
+.investigating{
+    background:#f59e0b;
+}
+
+.closed{
+    background:#16a34a;
+}
+
+/* PULSANTE */
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:8px 18px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🛡 OpenSOC Simulator - Incidents</h1>
+
+</header>
+
+<div class="container">
+
+<div class="stats">
+
+<div class="card">
+<h2>18</h2>
+<p>Incidenti Totali</p>
+</div>
+
+<div class="card">
+<h2>4</h2>
+<p>Critical</p>
+</div>
+
+<div class="card">
+<h2>7</h2>
+<p>High</p>
+</div>
+
+<div class="card">
+<h2>5</h2>
+<p>Medium</p>
+</div>
+
+<div class="card">
+<h2>2</h2>
+<p>Low</p>
+</div>
+
+</div>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Severity</th>
+<th>Status</th>
+<th>Host</th>
+<th>User</th>
+<th>MITRE</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>INC-1001</td>
+<td><span class="badge critical">Critical</span></td>
+<td><span class="badge active">Active</span></td>
+<td>SERVER-01</td>
+<td>Administrator</td>
+<td>T1110</td>
+<td><button>View</button></td>
+</tr>
+
+<tr>
+<td>INC-1002</td>
+<td><span class="badge high">High</span></td>
+<td><span class="badge investigating">Investigating</span></td>
+<td>PC-007</td>
+<td>Marco</td>
+<td>T1059</td>
+<td><button>View</button></td>
+</tr>
+
+<tr>
+<td>INC-1003</td>
+<td><span class="badge medium">Medium</span></td>
+<td><span class="badge active">Active</span></td>
+<td>LAPTOP-22</td>
+<td>Laura</td>
+<td>T1078</td>
+<td><button>View</button></td>
+</tr>
+
+<tr>
+<td>INC-1004</td>
+<td><span class="badge low">Low</span></td>
+<td><span class="badge closed">Closed</span></td>
+<td>MAIL-01</td>
+<td>Support</td>
+<td>T1566</td>
+<td><button>View</button></td>
+</tr>
+
+<tr>
+<td>INC-1005</td>
+<td><span class="badge critical">Critical</span></td>
+<td><span class="badge active">Active</span></td>
+<td>DC-01</td>
+<td>System</td>
+<td>T1003</td>
+<td><button>View</button></td>
+</tr>
+
+<tr>
+<td>INC-1006</td>
+<td><span class="badge high">High</span></td>
+<td><span class="badge investigating">Investigating</span></td>
+<td>SERVER-02</td>
+<td>Backup</td>
+<td>T1021</td>
+<td><button>View</button></td>
+</tr>
+
+<tr>
+<td>INC-1007</td>
+<td><span class="badge medium">Medium</span></td>
+<td><span class="badge closed">Closed</span></td>
+<td>HR-PC</td>
+<td>Sara</td>
+<td>T1047</td>
+<td><button>View</button></td>
+</tr>
+
+<tr>
+<td>INC-1008</td>
+<td><span class="badge low">Low</span></td>
+<td><span class="badge active">Active</span></td>
+<td>WEB-01</td>
+<td>Guest</td>
+<td>T1190</td>
+<td><button>View</button></td>
+</tr>
+
+</table>
+
+</div>
+
+</body>
+</html>

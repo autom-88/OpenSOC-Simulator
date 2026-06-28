@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OpenSOC - Playbooks</title>
+<link rel="stylesheet" href="css/main.css">
+<style>
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.pb{background:#111827;border:1px solid #334155;border-radius:10px;padding:20px}
+.pb h3{margin-bottom:10px}
+.steps{margin:15px 0;padding-left:20px}
+.status{font-weight:bold}
+.enabled{color:#22c55e}
+.disabled{color:#ef4444}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="logo">
+<h2>🛡 OpenSOC</h2>
+<span>Security Operations Center</span>
+</div>
+<ul>
+<li><a href="index.html">🏠 Dashboard</a></li>
+<li><a href="incident.html">🚨 Incidents</a></li>
+<li><a href="hunting.html">🔍 Threat Hunting</a></li>
+<li><a href="analytics.html">📊 Analytics</a></li>
+<li><a href="entities.html">🌐 Entities</a></li>
+<li><a href="devices.html">💻 Devices</a></li>
+<li><a href="users.html">👤 Users</a></li>
+<li><a href="timeline.html">⏱ Timeline</a></li>
+<li class="active"><a href="playbooks.html">⚙ Playbooks</a></li>
+<li><a href="reports.html">📄 Reports</a></li>
+<li><a href="settings.html">⚙ Settings</a></li>
+</ul>
+</aside>
+
+<main>
+
+<header class="topbar">
+<div>
+<h1>⚙ Playbooks</h1>
+<p>Simulated SOAR automation workflows</p>
+</div>
+<div class="status"><span class="online"></span>Connected</div>
+</header>
+
+<section class="cards">
+<div class="card"><h3>Total Playbooks</h3><h2>8</h2></div>
+<div class="card"><h3>Enabled</h3><h2 id="enabledCount">6</h2></div>
+<div class="card"><h3>Disabled</h3><h2 id="disabledCount">2</h2></div>
+<div class="card"><h3>Executions Today</h3><h2>42</h2></div>
+</section>
+
+<section class="grid">
+
+<div class="pb">
+<h3>🚫 Block IP Address</h3>
+<p class="status enabled" id="pb1">Enabled</p>
+<ol class="steps">
+<li>Receive alert</li>
+<li>Verify IOC</li>
+<li>Block IP on firewall</li>
+<li>Notify analyst</li>
+</ol>
+<button onclick="toggle('pb1')">Toggle</button>
+<button onclick="execute('Block IP')">Run</button>
+</div>
+
+<div class="pb">
+<h3>👤 Disable User</h3>
+<p class="status enabled" id="pb2">Enabled</p>
+<ol class="steps">
+<li>Validate account</li>
+<li>Disable user</li>
+<li>Generate incident</li>
+<li>Notify SOC</li>
+</ol>
+<button onclick="toggle('pb2')">Toggle</button>
+<button onclick="execute('Disable User')">Run</button>
+</div>
+
+<div class="pb">
+<h3>💻 Isolate Device</h3>
+<p class="status enabled" id="pb3">Enabled</p>
+<ol class="steps">
+<li>Detect malware</li>
+<li>Disconnect endpoint</li>
+<li>Collect evidence</li>
+</ol>
+<button onclick="toggle('pb3')">Toggle</button>
+<button onclick="execute('Isolate Device')">Run</button>
+</div>
+
+<div class="pb">
+<h3>📧 Notify Security Team</h3>
+<p class="status disabled" id="pb4">Disabled</p>
+<ol class="steps">
+<li>Create report</li>
+<li>Send email</li>
+<li>Open ticket</li>
+</ol>
+<button onclick="toggle('pb4')">Toggle</button>
+<button onclick="execute('Notify Team')">Run</button>
+</div>
+
+</section>
+
+<section>
+<h2>Execution Console</h2>
+<pre id="console">Ready...</pre>
+</section>
+
+</main>
+
+<script>
+function updateCounters(){
+let en=0,dis=0;
+document.querySelectorAll("[id^='pb']").forEach(e=>{
+ if(e.textContent==="Enabled"){en++;e.className="status enabled";}
+ else{dis++;e.className="status disabled";}
+});
+document.getElementById("enabledCount").textContent=en;
+document.getElementById("disabledCount").textContent=dis;
+}
+function toggle(id){
+const el=document.getElementById(id);
+el.textContent=el.textContent==="Enabled"?"Disabled":"Enabled";
+updateCounters();
+}
+function execute(name){
+document.getElementById("console").textContent=
+"["+new Date().toLocaleTimeString()+"] Executing playbook: "+name+
+"\nStatus: Completed\nResult: Success";
+}
+updateCounters();
+</script>
+
+</body>
+</html>

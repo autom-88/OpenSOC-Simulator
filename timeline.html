@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OpenSOC - Timeline</title>
+<link rel="stylesheet" href="css/main.css">
+<style>
+.timeline{position:relative;margin:20px 0;padding-left:40px}
+.timeline:before{content:"";position:absolute;left:15px;top:0;bottom:0;width:3px;background:#2563eb}
+.event{position:relative;background:#111827;border:1px solid #334155;border-radius:8px;padding:15px;margin:18px 0}
+.event:before{content:"";position:absolute;left:-33px;top:18px;width:14px;height:14px;border-radius:50%;background:#38bdf8}
+.time{color:#38bdf8;font-weight:bold}
+.critical{border-left:5px solid #ef4444}
+.high{border-left:5px solid #f97316}
+.medium{border-left:5px solid #eab308}
+.low{border-left:5px solid #22c55e}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+<div class="logo"><h2>🛡 OpenSOC</h2><span>Security Operations Center</span></div>
+<ul>
+<li><a href="index.html">🏠 Dashboard</a></li>
+<li><a href="incident.html">🚨 Incidents</a></li>
+<li><a href="hunting.html">🔍 Threat Hunting</a></li>
+<li><a href="analytics.html">📊 Analytics</a></li>
+<li><a href="entities.html">🌐 Entities</a></li>
+<li><a href="devices.html">💻 Devices</a></li>
+<li><a href="users.html">👤 Users</a></li>
+<li class="active"><a href="timeline.html">⏱ Timeline</a></li>
+<li><a href="playbooks.html">⚙ Playbooks</a></li>
+<li><a href="reports.html">📄 Reports</a></li>
+<li><a href="settings.html">⚙ Settings</a></li>
+</ul>
+</aside>
+
+<main>
+<header class="topbar">
+<div><h1>⏱ Security Timeline</h1><p>Chronological view of security events</p></div>
+<div class="status"><span class="online"></span>Connected</div>
+</header>
+
+<section class="cards">
+<div class="card"><h3>Events Today</h3><h2>126</h2></div>
+<div class="card"><h3>Alerts</h3><h2>31</h2></div>
+<div class="card"><h3>Incidents</h3><h2>8</h2></div>
+<div class="card critical"><h3>Critical</h3><h2>3</h2></div>
+</section>
+
+<section>
+<h2>Live Timeline</h2>
+<div class="timeline" id="timeline">
+<div class="event critical"><div class="time">09:42</div><strong>SERVER-01</strong><br>Multiple failed logins detected (Event ID 4625).</div>
+<div class="event high"><div class="time">09:39</div><strong>DC-01</strong><br>PowerShell execution detected.</div>
+<div class="event medium"><div class="time">09:34</div><strong>PC-007</strong><br>New administrator account created.</div>
+<div class="event low"><div class="time">09:29</div><strong>WEB-01</strong><br>Scheduled scan completed successfully.</div>
+</div>
+</section>
+</main>
+
+<script>
+const msgs=[
+["critical","SERVER-01","Brute force attack detected."],
+["high","PC-007","Suspicious PowerShell execution."],
+["medium","SERVER-02","New service installed."],
+["low","WEB-01","Windows Defender scan completed."],
+["high","DC-01","Nmap scan detected."]
+];
+setInterval(()=>{
+ const t=document.getElementById("timeline");
+ const m=msgs[Math.floor(Math.random()*msgs.length)];
+ const d=new Date();
+ const time=d.toLocaleTimeString();
+ const e=document.createElement("div");
+ e.className="event "+m[0];
+ e.innerHTML='<div class="time">'+time+'</div><strong>'+m[1]+'</strong><br>'+m[2];
+ t.prepend(e);
+ if(t.children.length>12){t.removeChild(t.lastElementChild);}
+},4000);
+</script>
+</body>
+</html>

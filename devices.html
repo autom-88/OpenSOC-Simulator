@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OpenSOC - Devices</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="logo">
+<h2>🛡 OpenSOC</h2>
+<span>Security Operations Center</span>
+</div>
+<ul>
+<li><a href="index.html">🏠 Dashboard</a></li>
+<li><a href="incident.html">🚨 Incidents</a></li>
+<li><a href="hunting.html">🔍 Threat Hunting</a></li>
+<li><a href="analytics.html">📊 Analytics</a></li>
+<li><a href="entities.html">🌐 Entities</a></li>
+<li class="active"><a href="devices.html">💻 Devices</a></li>
+<li><a href="users.html">👤 Users</a></li>
+<li><a href="timeline.html">⏱ Timeline</a></li>
+<li><a href="playbooks.html">⚙ Playbooks</a></li>
+<li><a href="reports.html">📄 Reports</a></li>
+<li><a href="settings.html">⚙ Settings</a></li>
+</ul>
+</aside>
+
+<main>
+
+<header class="topbar">
+<div>
+<h1>💻 Devices</h1>
+<p>Device inventory and security status</p>
+</div>
+<div class="status"><span class="online"></span>Connected</div>
+</header>
+
+<section class="cards">
+<div class="card"><h3>Total Devices</h3><h2>94</h2></div>
+<div class="card"><h3>Online</h3><h2>88</h2></div>
+<div class="card"><h3>Offline</h3><h2>6</h2></div>
+<div class="card critical"><h3>Compromised</h3><h2>2</h2></div>
+</section>
+
+<section>
+<h2>Search Device</h2>
+<input id="search" type="text" placeholder="Search hostname or IP..."
+style="width:100%;padding:12px;background:#111827;color:#fff;border:1px solid #334155;border-radius:8px;">
+</section>
+
+<section>
+<h2>Inventory</h2>
+<table id="devicesTable">
+<tr>
+<th>Hostname</th>
+<th>IP</th>
+<th>OS</th>
+<th>Status</th>
+<th>Risk</th>
+<th>Last Seen</th>
+</tr>
+
+<tr><td>SERVER-01</td><td>192.168.1.10</td><td>Windows Server 2022</td><td class="green">Online</td><td class="red">High</td><td>09:35</td></tr>
+<tr><td>SERVER-02</td><td>192.168.1.11</td><td>Ubuntu 24.04</td><td class="green">Online</td><td class="orange">Medium</td><td>09:33</td></tr>
+<tr><td>PC-007</td><td>192.168.1.25</td><td>Windows 11</td><td class="yellow">Warning</td><td class="orange">Medium</td><td>09:31</td></tr>
+<tr><td>LAPTOP-03</td><td>192.168.1.40</td><td>Windows 11</td><td class="green">Online</td><td class="green">Low</td><td>09:30</td></tr>
+<tr><td>DC-01</td><td>192.168.1.5</td><td>Windows Server</td><td class="green">Online</td><td class="red">Critical</td><td>09:36</td></tr>
+<tr><td>WEB-01</td><td>192.168.1.60</td><td>Debian</td><td class="green">Online</td><td class="green">Low</td><td>09:29</td></tr>
+</table>
+</section>
+
+<section>
+<h2>Device Details</h2>
+<pre id="details">
+Hostname: SERVER-01
+Operating System: Windows Server 2022
+CPU Usage: 24%
+Memory Usage: 61%
+Active Incidents: 2
+Open Ports: 80, 443, 3389
+Defender Status: Active
+Last Update: Today 08:10
+</pre>
+</section>
+
+</main>
+
+<script>
+const s=document.getElementById("search");
+s.addEventListener("keyup",()=>{
+ const f=s.value.toLowerCase();
+ document.querySelectorAll("#devicesTable tr").forEach((r,i)=>{
+   if(i===0)return;
+   r.style.display=r.textContent.toLowerCase().includes(f)?"":"none";
+ });
+});
+</script>
+
+</body>
+</html>

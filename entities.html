@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OpenSOC - Entities</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="logo">
+<h2>🛡 OpenSOC</h2>
+<span>Security Operations Center</span>
+</div>
+<ul>
+<li><a href="index.html">🏠 Dashboard</a></li>
+<li><a href="page2.html">🚨 Incidents</a></li>
+<li><a href="hunting.html">🔍 Threat Hunting</a></li>
+<li><a href="analytics.html">📊 Analytics</a></li>
+<li class="active"><a href="entities.html">🌐 Entities</a></li>
+<li><a href="devices.html">💻 Devices</a></li>
+<li><a href="users.html">👤 Users</a></li>
+<li><a href="timeline.html">⏱ Timeline</a></li>
+<li><a href="playbooks.html">⚙ Playbooks</a></li>
+<li><a href="reports.html">📄 Reports</a></li>
+<li><a href="settings.html">⚙ Settings</a></li>
+</ul>
+</aside>
+
+<main>
+
+<header class="topbar">
+<div>
+<h1>🌐 Entities Explorer</h1>
+<p>Search users, devices, IPs and processes</p>
+</div>
+<div class="status"><span class="online"></span>Connected</div>
+</header>
+
+<section class="cards">
+<div class="card"><h3>Users</h3><h2>328</h2></div>
+<div class="card"><h3>Devices</h3><h2>94</h2></div>
+<div class="card"><h3>IPs</h3><h2>512</h2></div>
+<div class="card"><h3>Processes</h3><h2>1,276</h2></div>
+</section>
+
+<section>
+<h2>Entity Search</h2>
+<input id="search" type="text" placeholder="Search by user, host or IP..." style="width:100%;padding:12px;border-radius:8px;border:1px solid #334155;background:#111827;color:#fff;">
+</section>
+
+<section>
+<h2>Entities</h2>
+<table id="entityTable">
+<tr><th>Type</th><th>Name</th><th>Status</th><th>Last Activity</th></tr>
+<tr><td>User</td><td>Administrator</td><td class="green">Online</td><td>09:31</td></tr>
+<tr><td>Device</td><td>SERVER-01</td><td class="green">Healthy</td><td>09:30</td></tr>
+<tr><td>IP</td><td>192.168.1.25</td><td class="orange">Monitored</td><td>09:28</td></tr>
+<tr><td>Process</td><td>powershell.exe</td><td class="red">Suspicious</td><td>09:26</td></tr>
+<tr><td>User</td><td>Marco</td><td class="green">Online</td><td>09:20</td></tr>
+<tr><td>Device</td><td>PC-007</td><td class="yellow">Warning</td><td>09:15</td></tr>
+<tr><td>IP</td><td>10.0.0.55</td><td class="green">Trusted</td><td>09:10</td></tr>
+<tr><td>Process</td><td>mimikatz.exe</td><td class="red">Detected</td><td>09:05</td></tr>
+</table>
+</section>
+
+<section>
+<h2>Entity Details</h2>
+<pre id="details">Select or search for an entity.
+
+Type: Device
+Name: SERVER-01
+Risk: Medium
+Incidents: 2
+Last Login: 09:30
+OS: Windows Server 2022
+</pre>
+</section>
+
+</main>
+
+<script>
+const input=document.getElementById("search");
+input.addEventListener("keyup",function(){
+ const filter=this.value.toLowerCase();
+ document.querySelectorAll("#entityTable tr").forEach((row,i)=>{
+   if(i===0) return;
+   row.style.display=row.textContent.toLowerCase().includes(filter)?"":"none";
+ });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OpenSOC - Users</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="logo">
+<h2>🛡 OpenSOC</h2>
+<span>Security Operations Center</span>
+</div>
+
+<ul>
+<li><a href="index.html">🏠 Dashboard</a></li>
+<li><a href="incident.html">🚨 Incidents</a></li>
+<li><a href="hunting.html">🔍 Threat Hunting</a></li>
+<li><a href="analytics.html">📊 Analytics</a></li>
+<li><a href="entities.html">🌐 Entities</a></li>
+<li><a href="devices.html">💻 Devices</a></li>
+<li class="active"><a href="users.html">👤 Users</a></li>
+<li><a href="timeline.html">⏱ Timeline</a></li>
+<li><a href="playbooks.html">⚙ Playbooks</a></li>
+<li><a href="reports.html">📄 Reports</a></li>
+<li><a href="settings.html">⚙ Settings</a></li>
+</ul>
+
+</aside>
+
+<main>
+
+<header class="topbar">
+<div>
+<h1>👤 Users</h1>
+<p>User Accounts Monitoring</p>
+</div>
+
+<div class="status">
+<span class="online"></span>
+Connected
+</div>
+</header>
+
+<section class="cards">
+
+<div class="card">
+<h3>Total Users</h3>
+<h2>328</h2>
+</div>
+
+<div class="card">
+<h3>Logged In</h3>
+<h2>97</h2>
+</div>
+
+<div class="card">
+<h3>Administrators</h3>
+<h2>12</h2>
+</div>
+
+<div class="card critical">
+<h3>High Risk</h3>
+<h2>5</h2>
+</div>
+
+</section>
+
+<section>
+
+<h2>Search User</h2>
+
+<input id="search" type="text"
+placeholder="Search username..."
+style="width:100%;padding:12px;background:#111827;color:#fff;border:1px solid #334155;border-radius:8px;">
+
+</section>
+
+<section>
+
+<h2>User Directory</h2>
+
+<table id="usersTable">
+
+<tr>
+<th>User</th>
+<th>Role</th>
+<th>Status</th>
+<th>Risk</th>
+<th>Last Login</th>
+</tr>
+
+<tr><td>Administrator</td><td>Domain Admin</td><td class="green">Online</td><td class="red">Critical</td><td>09:36</td></tr>
+
+<tr><td>Marco</td><td>Employee</td><td class="green">Online</td><td class="green">Low</td><td>09:20</td></tr>
+
+<tr><td>Laura</td><td>HR</td><td class="yellow">Away</td><td class="orange">Medium</td><td>08:54</td></tr>
+
+<tr><td>Backup</td><td>Service</td><td class="green">Running</td><td class="yellow">Medium</td><td>09:30</td></tr>
+
+<tr><td>Guest</td><td>Guest</td><td class="red">Disabled</td><td class="green">Low</td><td>Yesterday</td></tr>
+
+<tr><td>SecurityOps</td><td>SOC Analyst</td><td class="green">Online</td><td class="green">Low</td><td>09:40</td></tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>User Details</h2>
+
+<pre id="details">
+User: Administrator
+
+Role: Domain Admin
+
+Status: Online
+
+Risk Level: Critical
+
+Devices: SERVER-01
+
+Open Incidents: 2
+
+Last Successful Login: 09:36
+
+Failed Logins: 18
+
+MFA: Enabled
+
+Location: Headquarters
+</pre>
+
+</section>
+
+</main>
+
+<script>
+
+const search=document.getElementById("search");
+
+search.addEventListener("keyup",()=>{
+
+const filter=search.value.toLowerCase();
+
+document.querySelectorAll("#usersTable tr").forEach((row,index)=>{
+
+if(index===0) return;
+
+row.style.display=row.textContent.toLowerCase().includes(filter)?"":"none";
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

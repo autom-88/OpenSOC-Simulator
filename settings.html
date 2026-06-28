@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OpenSOC - Settings</title>
+<link rel="stylesheet" href="css/main.css">
+<style>
+.panel{background:#111827;border:1px solid #334155;border-radius:10px;padding:20px;margin-bottom:20px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #1f2937}
+.row:last-child{border-bottom:none}
+select,input[type=range]{width:220px}
+.save{margin-top:20px}
+#statusBox{margin-top:20px;background:#0b1220;border:1px solid #334155;padding:15px;border-radius:8px}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="logo">
+<h2>🛡 OpenSOC</h2>
+<span>Security Operations Center</span>
+</div>
+<ul>
+<li><a href="index.html">🏠 Dashboard</a></li>
+<li><a href="incident.html">🚨 Incidents</a></li>
+<li><a href="hunting.html">🔍 Threat Hunting</a></li>
+<li><a href="analytics.html">📊 Analytics</a></li>
+<li><a href="entities.html">🌐 Entities</a></li>
+<li><a href="devices.html">💻 Devices</a></li>
+<li><a href="users.html">👤 Users</a></li>
+<li><a href="timeline.html">⏱ Timeline</a></li>
+<li><a href="playbooks.html">⚙ Playbooks</a></li>
+<li><a href="reports.html">📄 Reports</a></li>
+<li class="active"><a href="settings.html">⚙ Settings</a></li>
+</ul>
+</aside>
+
+<main>
+<header class="topbar">
+<div>
+<h1>⚙ Settings</h1>
+<p>Configure the OpenSOC Simulator</p>
+</div>
+<div class="status"><span class="online"></span>Connected</div>
+</header>
+
+<section class="cards">
+<div class="card"><h3>Version</h3><h2>1.0</h2></div>
+<div class="card"><h3>Theme</h3><h2 id="themeLabel">Dark</h2></div>
+<div class="card"><h3>Language</h3><h2 id="langLabel">Italiano</h2></div>
+<div class="card"><h3>Simulation</h3><h2 id="speedLabel">Normal</h2></div>
+</section>
+
+<div class="panel">
+<h2>General</h2>
+
+<div class="row">
+<label>Theme</label>
+<select id="theme">
+<option>Dark</option>
+<option>Light</option>
+</select>
+</div>
+
+<div class="row">
+<label>Language</label>
+<select id="language">
+<option>Italiano</option>
+<option>English</option>
+</select>
+</div>
+
+<div class="row">
+<label>Simulation Speed</label>
+<input id="speed" type="range" min="1" max="3" value="2">
+</div>
+
+<div class="row">
+<label>Desktop Notifications</label>
+<input id="notify" type="checkbox" checked>
+</div>
+
+<div class="row">
+<label>Auto Refresh Dashboard</label>
+<input id="refresh" type="checkbox" checked>
+</div>
+
+<div class="row">
+<label>Enable Live Events</label>
+<input id="events" type="checkbox" checked>
+</div>
+
+<button class="save" onclick="saveSettings()">💾 Save Settings</button>
+<button class="save" onclick="resetSettings()">♻ Reset</button>
+
+<div id="statusBox">
+Current configuration loaded.
+</div>
+
+</div>
+
+</main>
+
+<script>
+function saveSettings(){
+const theme=document.getElementById("theme").value;
+const lang=document.getElementById("language").value;
+const speed=document.getElementById("speed").value;
+const labels={1:"Slow",2:"Normal",3:"Fast"};
+
+localStorage.setItem("opensoc_theme",theme);
+localStorage.setItem("opensoc_lang",lang);
+localStorage.setItem("opensoc_speed",speed);
+
+document.getElementById("themeLabel").textContent=theme;
+document.getElementById("langLabel").textContent=lang;
+document.getElementById("speedLabel").textContent=labels[speed];
+
+document.getElementById("statusBox").textContent=
+"Settings saved successfully at "+new Date().toLocaleTimeString();
+}
+
+function resetSettings(){
+localStorage.clear();
+location.reload();
+}
+
+window.onload=()=>{
+const t=localStorage.getItem("opensoc_theme");
+const l=localStorage.getItem("opensoc_lang");
+const s=localStorage.getItem("opensoc_speed");
+if(t){theme.value=t;themeLabel.textContent=t;}
+if(l){language.value=l;langLabel.textContent=l;}
+if(s){
+speed.value=s;
+speedLabel.textContent={1:"Slow",2:"Normal",3:"Fast"}[s];
+}
+}
+</script>
+
+</body>
+</html>

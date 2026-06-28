@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenSOC - Threat Hunting</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="logo">
+<h2>🛡 OpenSOC</h2>
+<span>Security Operations Center</span>
+</div>
+
+<ul>
+<li><a href="index.html">🏠 Dashboard</a></li>
+<li><a href="incident.html">🚨 Incidents</a></li>
+<li><a href="hunting.html">🔍 Threat Hunting</a></li>
+<li><a href="analytics.html">📊 Analytics</a></li>
+<li><a href="entities.html">🌐 Entities</a></li>
+<li><a href="devices.html">💻 Devices</a></li>
+<li><a href="users.html">👤 Users</a></li>
+<li><a href="timeline.html">⏱ Timeline</a></li>
+<li><a href="playbooks.html">⚙ Playbooks</a></li>
+<li><a href="reports.html">📄 Reports</a></li>
+<li><a href="settings.html">⚙ Settings</a></li>
+</ul>
+</aside>
+
+<main>
+
+<header class="topbar">
+<div>
+<h1>🔍 Threat Hunting</h1>
+<p>Interactive KQL Console</p>
+</div>
+
+<div class="status">
+<span class="online"></span>
+Connected
+</div>
+</header>
+
+<section class="cards">
+
+<div class="card">
+<h3>Queries</h3>
+<h2 id="queries">127</h2>
+</div>
+
+<div class="card">
+<h3>Threats</h3>
+<h2>14</h2>
+</div>
+
+<div class="card">
+<h3>Devices</h3>
+<h2>94</h2>
+</div>
+
+<div class="card">
+<h3>Events</h3>
+<h2>1.2M</h2>
+</div>
+
+</section>
+
+<section>
+
+<h2>Quick Queries</h2>
+
+<button onclick="loadQuery('failed')">Failed Login</button>
+<button onclick="loadQuery('powershell')">PowerShell</button>
+<button onclick="loadQuery('nmap')">Nmap</button>
+<button onclick="loadQuery('admin')">New Admin</button>
+<button onclick="loadQuery('mimikatz')">Mimikatz</button>
+
+</section>
+
+<section>
+
+<h2>KQL Editor</h2>
+
+<textarea id="query" rows="10">
+SecurityEvent
+| where EventID == 4625
+| summarize Count=count() by Account
+</textarea>
+
+<br><br>
+
+<button onclick="runQuery()">▶ Run Query</button>
+<button onclick="clearConsole()">Clear</button>
+
+<pre id="result">Ready...</pre>
+
+</section>
+
+<section>
+
+<h2>Recent Hunting Results</h2>
+
+<table>
+
+<tr>
+<th>Time</th>
+<th>Host</th>
+<th>User</th>
+<th>Event</th>
+<th>Severity</th>
+</tr>
+
+<tr>
+<td>09:21</td>
+<td>SERVER-01</td>
+<td>Administrator</td>
+<td>4625 Failed Login</td>
+<td class="red">High</td>
+</tr>
+
+<tr>
+<td>09:24</td>
+<td>SERVER-03</td>
+<td>Backup</td>
+<td>PowerShell Execution</td>
+<td class="orange">Medium</td>
+</tr>
+
+<tr>
+<td>09:28</td>
+<td>DC-01</td>
+<td>Administrator</td>
+<td>Nmap Scan</td>
+<td class="red">Critical</td>
+</tr>
+
+</table>
+
+</section>
+
+</main>
+
+<script>
+function loadQuery(type){
+
+const editor=document.getElementById("query");
+
+switch(type){
+
+case "failed":
+editor.value=`SecurityEvent
+| where EventID == 4625`;
+break;
+
+case "powershell":
+editor.value=`DeviceProcessEvents
+| where ProcessCommandLine contains "powershell"`;
+break;
+
+case "nmap":
+editor.value=`DeviceNetworkEvents
+| where RemotePort in (22,80,445)`;
+break;
+
+case "admin":
+editor.value=`SecurityEvent
+| where EventID == 4728`;
+break;
+
+case "mimikatz":
+editor.value=`DeviceProcessEvents
+| where ProcessCommandLine contains "mimikatz"`;
+break;
+
+}
+
+}
+
+function runQuery(){
+
+const q=document.getElementById("query").value;
+let r="";
+
+if(q.includes("4625")){
+r="Administrator : 18 Failed Login\nGuest : 4 Failed Login\nUser01 : 9 Failed Login";
+}
+else if(q.includes("powershell")){
+r="PowerShell detected on SERVER-03";
+}
+else if(q.includes("445")){
+r="Possible Nmap scan from 192.168.1.50";
+}
+else if(q.includes("4728")){
+r="New Administrator added";
+}
+else{
+r="No Results";
+}
+
+document.getElementById("result").textContent=r;
+
+}
+
+function clearConsole(){
+document.getElementById("result").textContent="";
+}
+</script>
+
+</body>
+</html>
